@@ -1,0 +1,32 @@
+{
+  "name": "serverless-mediaconvert",
+  "version": "1.0.0",
+  "description": "Serverless plugin to work with AWS mediaconvert",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "test": "No tests yet"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Collaborne/serverless-mediaconvert.git"
+  },
+  "keywords": [],
+  "author": "Collaborne B.V.",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Collaborne/serverless-mediaconvert/issues"
+  },
+  "homepage": "https://github.com/Collaborne/serverless-mediaconvert#readme",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/serverless": "^3.12.11",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1346.0",
+    "serverless": "^3.29.0"
+  }
+}
