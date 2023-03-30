@@ -1,31 +1,36 @@
 import { MediaConvert } from 'aws-sdk';
-import Serverless, { Options } from 'serverless';
+import Serverless from 'serverless';
 
-export default class ServerlessMediaConvertEndpointPlugin {
+export class ServerlessMediaConvertPlugin {
 	private readonly serverless: Serverless;
-	private readonly options: Options;
+	protected configurationVariablesSources: any;
 
-	constructor(serverless: Serverless, options: Options) {
+	constructor(serverless: Serverless) {
 		this.serverless = serverless;
-		this.options = options;
 
-		const variables = (this.serverless.variables as any);
-		variables['resolveVariable'] = this.resolveVariable.bind(this);
-		variables['resolveVariableSyntax'] = /\${mediaConvert:endpoint}/g;
+		this.configurationVariablesSources = {
+			mediaConvert: {
+				resolve: this.resolveVariable.bind(this),
+			},
+		};
 	}
 
-	async resolveVariable(variableString: string) {
-		if (variableString === 'mediaConvert:endpoint') {
+	async resolveVariable({ address }: { address: string }) {
+		if (address === 'endpoint') {
 			try {
 				const mediaConvert = new MediaConvert();
 				const data = await mediaConvert.describeEndpoints({}).promise();
 				const endpoint = data.Endpoints[0].Url;
 				this.serverless.cli.log(`MediaConvert endpoint resolved to: ${endpoint}`);
-				return endpoint;
+				return { value: endpoint };
 			} catch (error) {
 				this.serverless.cli.log(`Failed to resolve MediaConvert endpoint: ${error.message}`);
 				throw error;
 			}
+		} else {
+			throw new Error(`Unsupported address "${address}"`);
 		}
 	}
 }
+
+module.exports = ServerlessMediaConvertPlugin;
