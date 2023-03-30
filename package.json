@@ -28,5 +28,10 @@
   "dependencies": {
     "aws-sdk": "^2.1346.0",
     "serverless": "^3.29.0"
-  }
+  },
+  "files": [
+		"dist",
+		"src",
+		"tsconfig.json"
+	]
 }
