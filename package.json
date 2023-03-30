@@ -2,7 +2,7 @@
   "name": "serverless-mediaconvert",
   "version": "1.0.2",
   "description": "Serverless plugin to work with AWS mediaconvert",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/index.ts",
